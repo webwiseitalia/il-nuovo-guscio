@@ -93,38 +93,49 @@ export default function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            className="fixed inset-0 z-40 bg-dark-900 flex flex-col justify-end pb-20 px-8"
-            initial={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
-            animate={{ clipPath: 'circle(150% at calc(100% - 40px) 40px)' }}
-            exit={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-          >
-            {links.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block font-display text-5xl sm:text-6xl text-dark-50 mb-2 hover:text-gold-400 transition-colors"
-                initial={{ y: 60, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.1 + i * 0.05, duration: 0.35, ease: [0.76, 0, 0.24, 1] }}
-                style={{ fontWeight: 300 }}
-              >
-                {link.label}
-              </motion.a>
-            ))}
-            <motion.a
-              href="tel:+393338967957"
-              onClick={() => setOpen(false)}
-              className="mt-10 f-label c-gold"
+          <>
+            <motion.div
+              className="fixed inset-0 z-40"
+              style={{ backgroundColor: '#0a0a0c' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+            />
+            <motion.div
+              className="fixed inset-0 z-40 flex flex-col justify-end pb-20 px-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
-              +39 333 896 7957
-            </motion.a>
-          </motion.div>
+              {links.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="block font-display text-5xl sm:text-6xl text-dark-50 mb-2 hover:text-gold-400 transition-colors"
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ delay: 0.1 + i * 0.05, duration: 0.3, ease: [0.76, 0, 0.24, 1] }}
+                  style={{ fontWeight: 300 }}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+              <motion.a
+                href="tel:+393338967957"
+                onClick={() => setOpen(false)}
+                className="mt-10 f-label c-gold"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                +39 333 896 7957
+              </motion.a>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
