@@ -1,3 +1,7 @@
+import { useEffect, useRef } from 'react'
+import Lenis from '@studio-freight/lenis'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import ChiSiamo from './components/ChiSiamo'
@@ -8,11 +12,33 @@ import Recensioni from './components/Recensioni'
 import Gallery from './components/Gallery'
 import Contatti from './components/Contatti'
 import Footer from './components/Footer'
-import { Phone } from 'lucide-react'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function App() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+    })
+
+    lenis.on('scroll', ScrollTrigger.update)
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000)
+    })
+    gsap.ticker.lagSmoothing(0)
+
+    return () => {
+      lenis.destroy()
+      gsap.ticker.remove(lenis.raf)
+    }
+  }, [])
+
   return (
-    <div className="min-h-screen bg-dark-950">
+    <div className="grain">
       <Navbar />
       <Hero />
       <ChiSiamo />
@@ -24,13 +50,12 @@ function App() {
       <Contatti />
       <Footer />
 
-      {/* Mobile fixed call button */}
+      {/* Mobile call CTA */}
       <a
         href="tel:+393338967957"
-        className="fixed bottom-6 right-6 z-40 lg:hidden flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-dark-950 px-5 py-3.5 rounded-full font-semibold shadow-lg shadow-gold-500/30 transition-all duration-300"
+        className="fixed bottom-6 right-6 z-40 lg:hidden f-label border border-gold-400/30 bg-dark-900/90 backdrop-blur-md text-gold-400 px-5 py-3 rounded-full transition-all duration-500"
       >
-        <Phone className="w-5 h-5" />
-        <span className="text-sm">Chiama</span>
+        Prenota
       </a>
     </div>
   )

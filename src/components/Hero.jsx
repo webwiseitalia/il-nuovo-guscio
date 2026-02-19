@@ -1,60 +1,140 @@
-import { ChevronDown } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SplitType from 'split-type'
 import heroImg from '../assets/foto/foto-21.webp'
-import logo from '../assets/logo.webp'
+import heroImg2 from '../assets/foto/foto-1.webp'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Hero() {
+  const sectionRef = useRef()
+  const headlineRef = useRef()
+  const subRef = useRef()
+  const imgRef = useRef()
+  const img2Ref = useRef()
+  const labelRef = useRef()
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const split = new SplitType(headlineRef.current, { types: 'lines,words' })
+
+      split.lines.forEach(line => {
+        const wrapper = document.createElement('div')
+        wrapper.style.overflow = 'hidden'
+        wrapper.style.paddingBottom = '0.1em'
+        line.parentNode.insertBefore(wrapper, line)
+        wrapper.appendChild(line)
+      })
+
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+
+      tl.fromTo(split.lines,
+        { yPercent: 120, rotation: 3 },
+        { yPercent: 0, rotation: 0, duration: 1.4, stagger: 0.12, delay: 0.3 }
+      )
+
+      tl.fromTo(imgRef.current,
+        { clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)', scale: 1.3 },
+        { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', scale: 1, duration: 1.6, ease: 'power3.inOut' },
+        0.2
+      )
+
+      tl.fromTo(img2Ref.current,
+        { clipPath: 'inset(100% 0 0 0)', scale: 1.2 },
+        { clipPath: 'inset(0% 0 0 0)', scale: 1, duration: 1.4, ease: 'power3.inOut' },
+        0.6
+      )
+
+      tl.fromTo(labelRef.current,
+        { opacity: 0, x: -30 },
+        { opacity: 1, x: 0, duration: 0.8 },
+        1.0
+      )
+
+      tl.fromTo(subRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        1.2
+      )
+
+      gsap.to(imgRef.current, {
+        yPercent: -15,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+        }
+      })
+
+      gsap.to(img2Ref.current, {
+        yPercent: -8,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="hero" className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+    <section ref={sectionRef} id="hero" className="relative min-h-screen overflow-hidden bg-dark-900">
       <div className="absolute inset-0">
-        <img
-          src={heroImg}
-          alt="Sala ristorante Il Nuovo Guscio"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-950/70 via-dark-950/50 to-dark-950" />
-      </div>
+        <div
+          ref={imgRef}
+          className="absolute top-0 right-0 w-[75vw] md:w-[55vw] h-[110vh]"
+          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' }}
+        >
+          <img src={heroImg} alt="La sala del monastero" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-dark-900/40" />
+        </div>
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto">
-        <img
-          src={logo}
-          alt="Il Nuovo Guscio Logo"
-          className="w-24 h-24 md:w-28 md:h-28 mx-auto mb-8 rounded-full shadow-2xl shadow-black/50"
-        />
-
-        <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-          Solo pesce di mare,
-          <br />
-          <span className="text-gradient-gold">nel cuore di Pisogne</span>
-        </h1>
-
-        <p className="text-lg sm:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Ristorante di pesce in un ex monastero storico affacciato su Piazza Vescovo Corna Pellegrini.
-          Materia prima di altissima qualità, cucina mediterranea e tradizione sarda.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="tel:+393338967957"
-            className="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-dark-950 px-8 py-4 rounded-full text-base font-semibold transition-all duration-300 shadow-lg shadow-gold-500/20 hover:shadow-gold-500/30 hover:-translate-y-0.5"
-          >
-            Prenota il tuo tavolo
-          </a>
-          <a
-            href="#menu"
-            className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-gold-400/50 text-white hover:text-gold-400 px-8 py-4 rounded-full text-base font-medium transition-all duration-300 backdrop-blur-sm"
-          >
-            Scopri il menu
-          </a>
+        <div
+          ref={img2Ref}
+          className="absolute bottom-[8vh] left-[3vw] md:left-[5vw] w-[40vw] md:w-[22vw] aspect-[3/4] z-10"
+          style={{ clipPath: 'inset(100% 0 0 0)' }}
+        >
+          <img src={heroImg2} alt="Crudité di pesce" className="w-full h-full object-cover" />
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <a href="#chi-siamo" className="text-white/40 hover:text-gold-400 transition-colors">
-          <ChevronDown className="w-8 h-8" />
-        </a>
+      <div className="relative z-20 min-h-screen flex flex-col justify-between px-5 md:px-10 lg:px-16 pt-32 md:pt-40 pb-10">
+        <div ref={labelRef} className="f-label mb-8 md:mb-0" style={{ opacity: 0 }}>
+          Ristorante di pesce · Pisogne
+        </div>
+
+        <div className="max-w-[90vw] md:max-w-[70vw] lg:max-w-[55vw]">
+          <h1 ref={headlineRef} className="f-display text-dark-50">
+            Solo pesce
+            <br />
+            di mare
+          </h1>
+        </div>
+
+        <div ref={subRef} className="flex flex-col md:flex-row md:items-end justify-between gap-8" style={{ opacity: 0 }}>
+          <p className="f-body max-w-md" style={{ color: 'rgba(232,228,223,0.5)' }}>
+            In un ex monastero storico affacciato su Piazza Vescovo
+            Corna Pellegrini. Materia prima di altissima qualità,
+            cucina mediterranea e tradizione sarda.
+          </p>
+
+          <div className="flex items-center gap-6 flex-shrink-0">
+            <a
+              href="tel:+393338967957"
+              className="f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-7 py-3 rounded-full transition-all duration-500"
+            >
+              Prenota il tuo tavolo
+            </a>
+            <a href="#menu" className="f-label text-dark-200 hover:text-gold-400 transition-colors duration-500">
+              Menu ↓
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   )

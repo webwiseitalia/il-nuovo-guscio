@@ -1,103 +1,131 @@
-import { useState, useEffect } from 'react'
-import { Menu, X, Phone } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import gsap from 'gsap'
 import logo from '../assets/logo.webp'
 
-const navLinks = [
+const links = [
   { label: 'Chi Siamo', href: '#chi-siamo' },
   { label: 'Menu', href: '#menu' },
-  { label: 'La Location', href: '#location' },
+  { label: 'Location', href: '#location' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Contatti', href: '#contatti' },
 ]
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const navRef = useRef()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50)
+    const onScroll = () => setScrolled(window.scrollY > 80)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    if (!navRef.current) return
+    gsap.fromTo(navRef.current,
+      { y: -100, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.5 }
+    )
+  }, [])
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-dark-950/95 backdrop-blur-md shadow-lg shadow-black/20'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-3">
-            <img src={logo} alt="Il Nuovo Guscio" className="h-12 w-12 rounded-full" />
-            <div className="hidden sm:block">
-              <span className="text-lg font-serif font-semibold text-white">
-                Il Nuovo Guscio
-              </span>
-            </div>
+    <>
+      <nav
+        ref={navRef}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+          scrolled ? 'bg-dark-900/80 backdrop-blur-xl' : ''
+        }`}
+        style={{ opacity: 0 }}
+      >
+        <div className="flex items-center justify-between px-5 md:px-10 lg:px-16 h-20 md:h-24">
+          <a href="#" className="flex items-center gap-3 relative z-50">
+            <img src={logo} alt="Il Nuovo Guscio" className="h-10 w-10 md:h-11 md:w-11 rounded-full" />
+            <span className="hidden md:block font-display text-xl tracking-tight text-dark-50">
+              Il Nuovo Guscio
+            </span>
           </a>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
+          <div className="hidden lg:flex items-center">
+            {links.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-white/70 hover:text-gold-400 transition-colors duration-300 tracking-wide uppercase"
+                className="f-label text-dark-200 hover:text-gold-400 transition-colors duration-500"
+                style={{ marginLeft: i === 0 ? 0 : `${2 + (i % 3) * 0.8}rem` }}
               >
                 {link.label}
               </a>
             ))}
             <a
               href="tel:+393338967957"
-              className="flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-dark-950 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300"
+              className="ml-12 f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-6 py-2.5 rounded-full transition-all duration-500"
             >
-              <Phone className="w-4 h-4" />
               Prenota
             </a>
           </div>
 
-          {/* Mobile menu button */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-white/80 hover:text-white p-2"
+            onClick={() => setOpen(!open)}
+            className="lg:hidden relative z-50 w-10 h-10 flex flex-col justify-center items-end gap-1.5"
             aria-label="Menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <motion.span
+              className="block h-px bg-dark-50 origin-right"
+              animate={{ width: 28, rotate: open ? -45 : 0 }}
+              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+            />
+            <motion.span
+              className="block h-px bg-dark-50"
+              animate={{ width: open ? 0 : 18, opacity: open ? 0 : 1 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.span
+              className="block h-px bg-dark-50 origin-right"
+              animate={{ width: open ? 28 : 22, rotate: open ? 45 : 0 }}
+              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+            />
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Nav */}
-      <div
-        className={`lg:hidden transition-all duration-300 overflow-hidden ${
-          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <div className="bg-dark-950/98 backdrop-blur-lg border-t border-white/5 px-4 py-6 space-y-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="block py-3 px-4 text-white/70 hover:text-gold-400 hover:bg-white/5 rounded-lg transition-all duration-300 text-sm uppercase tracking-wide"
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="tel:+393338967957"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center justify-center gap-2 mt-4 bg-gold-500 text-dark-950 py-3 rounded-full text-sm font-semibold"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 z-40 bg-dark-900 flex flex-col justify-end pb-20 px-8"
+            initial={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
+            animate={{ clipPath: 'circle(150% at calc(100% - 40px) 40px)' }}
+            exit={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
           >
-            <Phone className="w-4 h-4" />
-            Prenota il tuo tavolo
-          </a>
-        </div>
-      </div>
-    </nav>
+            {links.map((link, i) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block font-display text-5xl sm:text-6xl text-dark-50 mb-2 hover:text-gold-400 transition-colors"
+                initial={{ y: 60, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 + i * 0.08, duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+                style={{ fontWeight: 300 }}
+              >
+                {link.label}
+              </motion.a>
+            ))}
+            <motion.a
+              href="tel:+393338967957"
+              onClick={() => setOpen(false)}
+              className="mt-10 f-label c-gold"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+            >
+              +39 333 896 7957
+            </motion.a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

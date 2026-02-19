@@ -1,74 +1,133 @@
-import { Heart, Gift, Wine, Sparkles } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SplitType from 'split-type'
 import bgImg from '../assets/foto/foto-11.webp'
+import detailImg from '../assets/foto/foto-9.webp'
 
-const experiences = [
-  {
-    icon: <Heart className="w-6 h-6" />,
-    title: 'Cene romantiche',
-    description: 'Anniversari e serate a due in un\'atmosfera intima e raffinata',
-  },
-  {
-    icon: <Gift className="w-6 h-6" />,
-    title: 'Compleanni e ricorrenze',
-    description: 'Festeggia i tuoi momenti importanti con un menu personalizzato',
-  },
-  {
-    icon: <Wine className="w-6 h-6" />,
-    title: 'Sala privata',
-    description: 'Uno spazio esclusivo per le tue cene riservate e i tuoi eventi',
-  },
-  {
-    icon: <Sparkles className="w-6 h-6" />,
-    title: 'Serate esclusive',
-    description: 'Michele guida personalmente l\'esperienza, consigliando piatti e abbinamenti',
-  },
-]
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Esperienze() {
+  const sectionRef = useRef()
+  const titleRef = useRef()
+  const bgRef = useRef()
+  const itemsRef = useRef([])
+  const detailRef = useRef()
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.to(bgRef.current, {
+        yPercent: 20,
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5,
+        }
+      })
+
+      const split = new SplitType(titleRef.current, { types: 'lines,words' })
+      split.lines.forEach(line => {
+        const w = document.createElement('div')
+        w.style.overflow = 'hidden'
+        line.parentNode.insertBefore(w, line)
+        w.appendChild(line)
+      })
+      gsap.fromTo(split.lines,
+        { yPercent: 100 },
+        {
+          yPercent: 0, duration: 1.2, stagger: 0.08, ease: 'power3.out',
+          scrollTrigger: { trigger: titleRef.current, start: 'top 80%' }
+        }
+      )
+
+      itemsRef.current.forEach((el, i) => {
+        if (!el) return
+        gsap.fromTo(el,
+          { opacity: 0, x: i % 2 === 0 ? -60 : 60, rotate: i % 2 === 0 ? -2 : 2 },
+          {
+            opacity: 1, x: 0, rotate: 0,
+            duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%' }
+          }
+        )
+      })
+
+      gsap.fromTo(detailRef.current,
+        { clipPath: 'inset(0 0 100% 0)', scale: 1.1 },
+        {
+          clipPath: 'inset(0 0 0% 0)', scale: 1,
+          duration: 1.4, ease: 'power3.inOut',
+          scrollTrigger: { trigger: detailRef.current, start: 'top 75%' }
+        }
+      )
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  const experiences = [
+    { title: 'Cene romantiche', sub: "Anniversari e serate a due in un'atmosfera intima" },
+    { title: 'Compleanni', sub: 'Festeggia i tuoi momenti importanti con un menu su misura' },
+    { title: 'Sala privata', sub: 'Uno spazio esclusivo per le tue cene riservate' },
+    { title: 'Serate esclusive', sub: "Michele guida personalmente l'esperienza" },
+  ]
+
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img src={bgImg} alt="Atmosfera Il Nuovo Guscio" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-dark-950/85" />
+    <section ref={sectionRef} className="relative py-32 md:py-48 overflow-hidden">
+      <div className="absolute inset-0 -top-[20%] -bottom-[20%]">
+        <div ref={bgRef} className="w-full h-full">
+          <img src={bgImg} alt="" className="w-full h-full object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-dark-900/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-transparent to-dark-900" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="text-gold-400 text-sm uppercase tracking-[0.2em] font-medium">
-            Occasioni speciali
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4 mb-6">
-            Per i tuoi momenti indimenticabili
-          </h2>
-          <div className="gold-divider mb-6" />
-          <p className="text-white/60 text-lg max-w-xl mx-auto">
-            Possibilità di menu personalizzati per rendere ogni occasione unica e speciale.
-          </p>
-        </div>
+      <div className="relative z-10 px-5 md:px-10 lg:px-16">
+        <div className="grid grid-cols-12 gap-4 md:gap-8">
+          <div className="col-span-12 md:col-span-7">
+            <span className="f-label block mb-6">Occasioni speciali</span>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {experiences.map((exp, index) => (
-            <div
-              key={index}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 hover:border-gold-400/30 transition-all duration-500"
-            >
-              <div className="w-14 h-14 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 mx-auto mb-5">
-                {exp.icon}
-              </div>
-              <h3 className="text-white font-serif text-lg font-semibold mb-3">{exp.title}</h3>
-              <p className="text-white/50 text-sm leading-relaxed">{exp.description}</p>
+            <h2 ref={titleRef} className="f-display-sm text-dark-50 mb-16 md:mb-24">
+              Per i tuoi momenti
+              <br />
+              <span className="f-accent">indimenticabili</span>
+            </h2>
+
+            <div className="space-y-0">
+              {experiences.map((exp, i) => (
+                <div
+                  key={exp.title}
+                  ref={el => itemsRef.current[i] = el}
+                  className="border-t border-white/[0.06] py-8 md:py-10 flex flex-col md:flex-row md:items-baseline gap-2 md:gap-12"
+                  style={{ opacity: 0 }}
+                >
+                  <span className="font-display text-2xl md:text-3xl text-dark-50" style={{ fontWeight: 300, minWidth: '220px' }}>
+                    {exp.title}
+                  </span>
+                  <p className="f-body">{exp.sub}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="text-center">
-          <a
-            href="tel:+393338967957"
-            className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-dark-950 px-8 py-4 rounded-full text-base font-semibold transition-all duration-300 shadow-lg shadow-gold-500/20"
-          >
-            Organizza la tua serata speciale
-          </a>
+            <a
+              href="tel:+393338967957"
+              className="inline-block mt-12 f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-7 py-3 rounded-full transition-all duration-500"
+            >
+              Organizza la tua serata
+            </a>
+          </div>
+
+          <div className="col-span-10 col-start-2 md:col-span-4 md:col-start-9 mt-12 md:mt-32">
+            <div
+              ref={detailRef}
+              className="aspect-[3/4] overflow-hidden"
+              style={{ clipPath: 'inset(0 0 100% 0)' }}
+            >
+              <img src={detailImg} alt="Vino e atmosfera" className="w-full h-full object-cover" />
+            </div>
+            <p className="f-label mt-4 c-muted">L'atmosfera di una serata speciale</p>
+          </div>
         </div>
       </div>
     </section>

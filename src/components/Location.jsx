@@ -1,82 +1,136 @@
-import { MapPin, Users, Wine, Lock } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SplitType from 'split-type'
 import sala1 from '../assets/foto/foto-21.webp'
-import sala2 from '../assets/foto/foto-3.webp'
 import cantina from '../assets/foto/foto-22.webp'
 import esterno from '../assets/foto/foto-12.webp'
 
+gsap.registerPlugin(ScrollTrigger)
+
 export default function Location() {
+  const sectionRef = useRef()
+  const titleRef = useRef()
+  const marqueeRef = useRef()
+  const img1Ref = useRef()
+  const img2Ref = useRef()
+  const img3Ref = useRef()
+  const featuresRef = useRef()
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const split = new SplitType(titleRef.current, { types: 'lines' })
+      split.lines.forEach(line => {
+        const w = document.createElement('div')
+        w.style.overflow = 'hidden'
+        line.parentNode.insertBefore(w, line)
+        w.appendChild(line)
+      })
+      gsap.fromTo(split.lines,
+        { yPercent: 120 },
+        {
+          yPercent: 0, duration: 1.3, stagger: 0.1, ease: 'power3.out',
+          scrollTrigger: { trigger: titleRef.current, start: 'top 80%' }
+        }
+      )
+
+      gsap.to(marqueeRef.current, {
+        xPercent: -50,
+        duration: 30,
+        repeat: -1,
+        ease: 'none',
+      })
+
+      const imgs = [img1Ref, img2Ref, img3Ref]
+      imgs.forEach((ref, i) => {
+        gsap.fromTo(ref.current,
+          { clipPath: 'inset(100% 0 0 0)', scale: 1.15 },
+          {
+            clipPath: 'inset(0% 0 0 0)', scale: 1,
+            duration: 1.5, ease: 'power3.inOut',
+            scrollTrigger: { trigger: ref.current, start: 'top 80%' },
+            delay: i * 0.2,
+          }
+        )
+        const imgEl = ref.current?.querySelector('img')
+        if (imgEl) {
+          gsap.to(imgEl, {
+            yPercent: -8,
+            scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: 2 }
+          })
+        }
+      })
+
+      if (featuresRef.current) {
+        gsap.fromTo(featuresRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out',
+            scrollTrigger: { trigger: featuresRef.current, start: 'top 85%' }
+          }
+        )
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <section id="location" className="section-padding bg-dark-950">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="text-gold-400 text-sm uppercase tracking-[0.2em] font-medium">
-            Un luogo unico
-          </span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-4 mb-6">
-            La Location
-          </h2>
-          <div className="gold-divider mb-6" />
-          <p className="text-white/60 text-lg max-w-2xl mx-auto">
-            Un ex monastero nel cuore del centro storico di Pisogne, parte della storica Villa Damioli.
-            Le mura medievali della piazza creano un contesto unico e suggestivo.
-          </p>
+    <section ref={sectionRef} id="location" className="relative py-20 md:py-32 overflow-hidden" style={{ backgroundColor: '#0d0d10' }}>
+      <div className="overflow-hidden mb-16 md:mb-24 opacity-[0.04]">
+        <div ref={marqueeRef} className="whitespace-nowrap flex">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span key={i} className="font-display text-[12vw] md:text-[10vw] text-dark-50 mx-8" style={{ fontWeight: 300 }}>
+              Ex Monastero · Villa Damioli · Pisogne · Centro Storico ·{' '}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="px-5 md:px-10 lg:px-16">
+        <div className="mb-6">
+          <span className="f-label">Un luogo unico</span>
+        </div>
+        <h2 ref={titleRef} className="f-display-sm text-dark-50 max-w-[70vw] md:max-w-[45vw] mb-20 md:mb-32">
+          Un ex monastero
+          <br />
+          nel cuore della storia
+        </h2>
+
+        <div className="grid grid-cols-12 gap-3 md:gap-5">
+          <div className="col-span-12 md:col-span-8">
+            <div ref={img1Ref} className="aspect-[16/9] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
+              <img src={sala1} alt="La sala con le volte storiche" className="w-full h-full object-cover will-change-transform" />
+            </div>
+            <p className="f-label mt-3 c-muted">Le volte del monastero</p>
+          </div>
+
+          <div className="col-span-6 md:col-span-4 mt-0 md:mt-20">
+            <div ref={img2Ref} className="aspect-[3/4] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
+              <img src={cantina} alt="La cantina dei vini" className="w-full h-full object-cover will-change-transform" />
+            </div>
+            <p className="f-label mt-3 c-muted">La cantina</p>
+          </div>
+
+          <div className="col-span-6 md:col-span-5 md:col-start-3 mt-6 md:-mt-16">
+            <div ref={img3Ref} className="aspect-[5/3] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
+              <img src={esterno} alt="La terrazza" className="w-full h-full object-cover will-change-transform" />
+            </div>
+            <p className="f-label mt-3 c-muted">La terrazza in piazza</p>
+          </div>
         </div>
 
-        {/* Image Grid */}
-        <div className="grid md:grid-cols-3 gap-4 mb-16">
-          <div className="md:col-span-2 relative group overflow-hidden rounded-2xl aspect-[16/10]">
-            <img src={sala1} alt="Sala principale con volte" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-dark-950/60 via-transparent to-transparent" />
-            <p className="absolute bottom-4 left-6 font-serif text-lg text-white font-medium">La sala con le volte storiche</p>
-          </div>
-          <div className="space-y-4">
-            <div className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
-              <img src={cantina} alt="Cantina dei vini" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-950/60 via-transparent to-transparent" />
-              <p className="absolute bottom-3 left-4 font-serif text-sm text-white font-medium">La cantina</p>
-            </div>
-            <div className="relative group overflow-hidden rounded-2xl aspect-[4/3]">
-              <img src={esterno} alt="Vista esterna del ristorante" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-950/60 via-transparent to-transparent" />
-              <p className="absolute bottom-3 left-4 font-serif text-sm text-white font-medium">La terrazza</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Features */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={featuresRef} className="mt-20 md:mt-32 grid grid-cols-2 md:grid-cols-4 gap-x-8 md:gap-x-16 gap-y-10 border-t border-white/[0.06] pt-12">
           {[
-            {
-              icon: <MapPin className="w-5 h-5" />,
-              title: 'Centro storico',
-              desc: 'Nel cuore di Pisogne, zona pedonale con parcheggio nelle vicinanze',
-            },
-            {
-              icon: <Users className="w-5 h-5" />,
-              title: '50 coperti',
-              desc: 'Un ristorante volutamente piccolo dove ogni ospite riceve attenzione personale',
-            },
-            {
-              icon: <Wine className="w-5 h-5" />,
-              title: 'Cantina curata',
-              desc: 'Selezione ricercata di etichette italiane e internazionali',
-            },
-            {
-              icon: <Lock className="w-5 h-5" />,
-              title: 'Sala privata',
-              desc: 'Disponibile per cene riservate, eventi e occasioni speciali',
-            },
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="bg-dark-900/50 border border-white/5 rounded-xl p-6 text-center hover:border-gold-400/20 transition-all duration-500"
-            >
-              <div className="w-10 h-10 rounded-full bg-gold-500/10 flex items-center justify-center text-gold-400 mx-auto mb-4">
-                {item.icon}
-              </div>
-              <h3 className="text-white font-semibold mb-2">{item.title}</h3>
-              <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+            { num: '50', label: 'Coperti', sub: 'Un ristorante volutamente piccolo' },
+            { num: '01', label: 'Sala privata', sub: 'Per cene riservate e eventi' },
+            { num: '∞', label: 'Cantina curata', sub: 'Etichette italiane e internazionali' },
+            { num: '—', label: 'Centro storico', sub: 'Zona pedonale, parcheggio vicino' },
+          ].map((f) => (
+            <div key={f.label}>
+              <span className="font-display text-4xl md:text-5xl text-gold-400/50 block mb-3" style={{ fontWeight: 300 }}>{f.num}</span>
+              <p className="text-dark-50 text-sm font-medium mb-1">{f.label}</p>
+              <p className="f-body text-xs" style={{ color: 'rgba(232,228,223,0.35)' }}>{f.sub}</p>
             </div>
           ))}
         </div>

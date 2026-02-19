@@ -1,101 +1,84 @@
-import { Phone, Mail, MapPin, Facebook } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import logo from '../assets/logo.webp'
 
-const quickLinks = [
-  { label: 'Menu', href: '#menu' },
-  { label: 'Prenota', href: 'tel:+393338967957' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Contatti', href: '#contatti' },
-]
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Footer() {
+  const footerRef = useRef()
+  const ctaRef = useRef()
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(ctaRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: ctaRef.current, start: 'top 90%' }
+        }
+      )
+    }, footerRef)
+    return () => ctx.revert()
+  }, [])
+
   return (
-    <footer className="bg-dark-950 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
-          <div>
+    <footer ref={footerRef} className="relative bg-dark-900 overflow-hidden">
+      <div ref={ctaRef} className="py-24 md:py-40 px-5 md:px-10 lg:px-16 text-center" style={{ opacity: 0 }}>
+        <a href="tel:+393338967957" className="group inline-block">
+          <span className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-dark-50 group-hover:text-gold-400 transition-colors duration-700 block" style={{ fontWeight: 300, lineHeight: 1 }}>
+            Prenota il tuo tavolo
+          </span>
+          <span className="block mt-4 f-label c-muted group-hover:text-gold-400 transition-colors duration-500">
+            +39 333 896 7957
+          </span>
+        </a>
+      </div>
+
+      <div className="border-t border-white/[0.04] px-5 md:px-10 lg:px-16 py-12">
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-4">
             <div className="flex items-center gap-3 mb-4">
-              <img src={logo} alt="Il Nuovo Guscio" className="w-10 h-10 rounded-full" />
-              <span className="font-serif text-xl font-semibold text-white">Il Nuovo Guscio</span>
+              <img src={logo} alt="Il Nuovo Guscio" className="w-8 h-8 rounded-full" />
+              <span className="font-display text-lg text-dark-50" style={{ fontWeight: 400 }}>Il Nuovo Guscio</span>
             </div>
-            <p className="text-white/50 text-sm leading-relaxed mb-4">
-              Ristorante di pesce di mare nel cuore di Pisogne.
-              Cucina mediterranea e tradizione sarda.
+            <p className="f-body text-xs" style={{ color: 'rgba(232,228,223,0.25)' }}>
+              Ristorante di pesce di mare
+              <br />
+              Cucina mediterranea e tradizione sarda
             </p>
-            <a
-              href="https://facebook.com/nuovoguscio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-white/40 hover:text-gold-400 transition-colors text-sm"
-            >
-              <Facebook className="w-4 h-4" />
-              Seguici su Facebook
-            </a>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Link rapidi</h3>
+          <div className="col-span-6 md:col-span-3 md:col-start-6">
             <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-white/50 hover:text-gold-400 transition-colors text-sm"
-                  >
-                    {link.label}
-                  </a>
+              {['Menu', 'Gallery', 'Contatti'].map(l => (
+                <li key={l}>
+                  <a href={`#${l.toLowerCase()}`} className="f-body text-xs text-dark-300 hover:text-gold-400 transition-colors">{l}</a>
                 </li>
               ))}
+              <li>
+                <a href="https://facebook.com/nuovoguscio" target="_blank" rel="noopener noreferrer" className="f-body text-xs text-dark-300 hover:text-gold-400 transition-colors">Facebook</a>
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-white font-semibold text-sm uppercase tracking-wider mb-4">Contatti</h3>
-            <ul className="space-y-3">
-              <li>
-                <a href="https://maps.google.com/?q=Piazza+Vescovo+Corna+Pellegrini+12b+Pisogne+BS" target="_blank" rel="noopener noreferrer" className="flex items-start gap-2 text-white/50 hover:text-gold-400 transition-colors text-sm">
-                  <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>Piazza Vescovo Corna Pellegrini, 12b<br />25055 Pisogne (BS)</span>
-                </a>
-              </li>
-              <li>
-                <a href="tel:+393338967957" className="flex items-center gap-2 text-white/50 hover:text-gold-400 transition-colors text-sm">
-                  <Phone className="w-4 h-4" />
-                  +39 333 896 7957
-                </a>
-              </li>
-              <li>
-                <a href="mailto:ilnuovoguscioem@libero.it" className="flex items-center gap-2 text-white/50 hover:text-gold-400 transition-colors text-sm">
-                  <Mail className="w-4 h-4" />
-                  ilnuovoguscioem@libero.it
-                </a>
-              </li>
-            </ul>
-            <div className="mt-4 text-white/30 text-xs">
-              <p>Inverno: gio–sab cena, dom pranzo e cena</p>
-              <p>Estate: tutti i giorni tranne mercoledì</p>
-            </div>
+          <div className="col-span-6 md:col-span-3 md:col-start-10">
+            <p className="f-body text-xs c-muted">
+              Piazza Vescovo Corna Pellegrini, 12b
+              <br />
+              25055 Pisogne (BS)
+            </p>
+            <p className="f-body text-xs c-muted mt-3">
+              Inverno: gio–dom
+              <br />
+              Estate: lun–dom tranne mer
+            </p>
           </div>
         </div>
 
-        {/* CTA finale */}
-        <div className="text-center mb-10">
-          <a
-            href="tel:+393338967957"
-            className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-dark-950 px-8 py-3.5 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-gold-500/20"
-          >
-            <Phone className="w-4 h-4" />
-            Prenota il tuo tavolo
-          </a>
-        </div>
-
-        {/* Bottom */}
-        <div className="border-t border-white/5 pt-8 text-center text-white/30 text-xs space-y-1">
-          <p>© {new Date().getFullYear()} Il Nuovo Guscio — Pisogne (BS)</p>
-          <p>P.IVA: IT04333680983</p>
+        <div className="mt-12 pt-6 border-t border-white/[0.04] flex flex-col md:flex-row justify-between gap-4">
+          <p className="f-body text-xs c-muted">© {new Date().getFullYear()} Il Nuovo Guscio — Pisogne (BS)</p>
+          <p className="f-body text-xs c-muted">P.IVA: IT04333680983</p>
         </div>
       </div>
     </footer>
