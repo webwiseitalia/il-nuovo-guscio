@@ -91,7 +91,6 @@ export default function Hero() {
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' }}
         >
           <img src={heroImg} alt="La sala del monastero" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-dark-900/40" />
         </div>
 
         <div
@@ -100,8 +99,10 @@ export default function Hero() {
           style={{ clipPath: 'inset(100% 0 0 0)' }}
         >
           <img src={heroImg2} alt="Crudité di pesce" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ backgroundColor: 'rgba(10, 10, 12, 0.7)' }} />
         </div>
       </div>
+
 
       <div className="relative z-20 min-h-screen flex flex-col justify-between px-5 md:px-10 lg:px-16 pt-32 md:pt-40 pb-10">
         <div ref={labelRef} className="f-label mb-8 md:mb-0" style={{ opacity: 0 }}>
@@ -117,7 +118,7 @@ export default function Hero() {
         </div>
 
         <div ref={subRef} className="flex flex-col md:flex-row md:items-end justify-between gap-8" style={{ opacity: 0 }}>
-          <p className="f-body max-w-md" style={{ color: 'rgba(232,228,223,0.5)' }}>
+          <p className="f-body max-w-md" style={{ color: 'rgba(232,228,223,0.7)' }}>
             In un ex monastero storico affacciato su Piazza Vescovo
             Corna Pellegrini. Materia prima di altissima qualità,
             cucina mediterranea e tradizione sarda.

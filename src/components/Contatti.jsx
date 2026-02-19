@@ -117,7 +117,7 @@ export default function Contatti() {
           </div>
 
           <div className="col-span-12 md:col-span-6 md:col-start-7">
-            <div ref={orariRef} className="mb-10 md:mb-16" style={{ opacity: 0 }}>
+            <div ref={orariRef} className="mb-0" style={{ opacity: 0 }}>
               <span className="f-label block mb-6">Orari di apertura</span>
               <div className="border-t border-white/[0.06]">
                 <div className="py-6 border-b border-white/[0.06]">
@@ -140,24 +140,24 @@ export default function Contatti() {
               </div>
               <p className="f-body text-xs mt-4 c-muted">Ferie: settembre</p>
             </div>
-
-            <div
-              ref={mapRef}
-              className="aspect-[4/3] overflow-hidden"
-              style={{ clipPath: 'inset(0 0 0 100%)' }}
-            >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2770.5!2d10.1085!3d45.8048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47817e0c1f5f1111%3A0x1234567890abcdef!2sPiazza%20Vescovo%20Corna%20Pellegrini%2C%2012b%2C%2025055%20Pisogne%20BS!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Mappa Il Nuovo Guscio"
-              />
-            </div>
           </div>
+        </div>
+
+        <div
+          ref={mapRef}
+          className="mt-16 md:mt-24 aspect-[16/7] overflow-hidden rounded-sm"
+          style={{ clipPath: 'inset(0 0 0 100%)' }}
+        >
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2770.5!2d10.1085!3d45.8048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47817e0c1f5f1111%3A0x1234567890abcdef!2sPiazza%20Vescovo%20Corna%20Pellegrini%2C%2012b%2C%2025055%20Pisogne%20BS!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Mappa Il Nuovo Guscio"
+          />
         </div>
       </div>
     </section>

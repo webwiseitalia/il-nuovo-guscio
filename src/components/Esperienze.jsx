@@ -77,9 +77,9 @@ export default function Esperienze() {
     <section ref={sectionRef} className="relative py-32 md:py-48 overflow-hidden">
       <div className="absolute inset-0 -top-[20%] -bottom-[20%]">
         <div ref={bgRef} className="w-full h-full">
-          <img src={bgImg} alt="" className="w-full h-full object-cover" />
+          <img src={bgImg} alt="" className="w-full h-full object-cover opacity-20" />
         </div>
-        <div className="absolute inset-0 bg-dark-900/85" />
+        <div className="absolute inset-0 bg-dark-900/80" />
         <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-transparent to-dark-900" />
       </div>
 
