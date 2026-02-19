@@ -29,7 +29,7 @@ export default function ChiSiamo() {
       gsap.fromTo(split.lines,
         { yPercent: 110 },
         {
-          yPercent: 0, duration: 1.2, stagger: 0.1, ease: 'power3.out',
+          yPercent: 0, duration: 0.7, stagger: 0.06, ease: 'power3.out',
           scrollTrigger: { trigger: titleRef.current, start: 'top 85%' }
         }
       )
@@ -38,7 +38,7 @@ export default function ChiSiamo() {
         { clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' },
         {
           clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-          duration: 1.4, ease: 'power3.inOut',
+          duration: 0.8, ease: 'power3.inOut',
           scrollTrigger: { trigger: imgRef.current, start: 'top 75%' }
         }
       )
@@ -47,7 +47,7 @@ export default function ChiSiamo() {
         { clipPath: 'inset(0 100% 0 0)' },
         {
           clipPath: 'inset(0 0% 0 0)',
-          duration: 1.3, ease: 'power3.inOut',
+          duration: 0.75, ease: 'power3.inOut',
           scrollTrigger: { trigger: img2Ref.current, start: 'top 80%' }
         }
       )
@@ -57,9 +57,9 @@ export default function ChiSiamo() {
         gsap.fromTo(el,
           { opacity: 0, y: 40 },
           {
-            opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+            opacity: 1, y: 0, duration: 0.55, ease: 'power2.out',
             scrollTrigger: { trigger: el, start: 'top 85%' },
-            delay: i * 0.15,
+            delay: i * 0.08,
           }
         )
       })
@@ -67,7 +67,7 @@ export default function ChiSiamo() {
       gsap.fromTo(badgeRef.current,
         { opacity: 0, x: -20 },
         {
-          opacity: 1, x: 0, duration: 0.7,
+          opacity: 1, x: 0, duration: 0.45,
           scrollTrigger: { trigger: badgeRef.current, start: 'top 90%' }
         }
       )
@@ -108,7 +108,7 @@ export default function ChiSiamo() {
               className="aspect-[3/4] overflow-hidden"
               style={{ clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' }}
             >
-              <img src={chefImg} alt="Lo chef con il plateau" className="w-full h-full object-cover" />
+              <img src={chefImg} alt="Lo chef con il plateau" title="Chef Osvaldo Longo" loading="lazy" width={600} height={800} className="w-full h-full object-cover" />
             </div>
             <p className="f-label mt-4 c-muted">Chef Osvaldo Longo</p>
           </div>
@@ -148,7 +148,7 @@ export default function ChiSiamo() {
             className="aspect-[16/7] overflow-hidden"
             style={{ clipPath: 'inset(0 100% 0 0)' }}
           >
-            <img src={salaImg} alt="La sala elegante" className="w-full h-full object-cover" />
+            <img src={salaImg} alt="La sala elegante" title="La sala del ristorante" loading="lazy" width={1200} height={525} className="w-full h-full object-cover" />
           </div>
           <p className="f-label mt-4 c-muted">La sala — Ex monastero, Pisogne</p>
         </div>

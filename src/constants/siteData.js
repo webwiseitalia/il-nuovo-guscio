@@ -1,0 +1,31 @@
+export const SITE = {
+  name: 'Il Nuovo Guscio',
+  tagline: 'Ristorante di pesce di mare',
+  description: 'Il Nuovo Guscio — Ristorante di pesce di mare a Pisogne, Lago d\'Iseo. Cucina mediterranea e tradizione sarda in un ex monastero storico.',
+  url: 'https://ilnuovoguscio.it',
+  phone: '+39 333 896 7957',
+  phoneRaw: '+393338967957',
+  email: 'ilnuovoguscioem@libero.it',
+  address: {
+    street: 'Piazza Vescovo Corna Pellegrini, 12b',
+    city: 'Pisogne',
+    province: 'BS',
+    zip: '25055',
+    country: 'IT',
+    full: 'Piazza Vescovo Corna Pellegrini, 12b, 25055 Pisogne (BS)',
+  },
+  piva: 'IT04333680983',
+  social: {
+    facebook: 'https://facebook.com/nuovoguscio',
+  },
+  booking: 'https://ilnuovoguscio.eatbu.com',
+  maps: 'https://maps.google.com/?q=Piazza+Vescovo+Corna+Pellegrini+12b+Pisogne+BS',
+  coordinates: {
+    lat: 45.8048,
+    lng: 10.1085,
+  },
+  owner: 'Michele Foresti',
+  chef: 'Osvaldo Longo',
+  keywords: 'ristorante pesce Pisogne, ristorante pesce lago d\'Iseo, pesce fresco Pisogne, crudité pesce Pisogne, ristorante romantico Pisogne, sala privata Pisogne',
+  ogImage: '/og-image.jpg',
+}

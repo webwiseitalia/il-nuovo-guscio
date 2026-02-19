@@ -36,7 +36,7 @@ export default function Esperienze() {
       gsap.fromTo(split.lines,
         { yPercent: 100 },
         {
-          yPercent: 0, duration: 1.2, stagger: 0.08, ease: 'power3.out',
+          yPercent: 0, duration: 0.7, stagger: 0.05, ease: 'power3.out',
           scrollTrigger: { trigger: titleRef.current, start: 'top 80%' }
         }
       )
@@ -47,7 +47,7 @@ export default function Esperienze() {
           { opacity: 0, x: i % 2 === 0 ? -60 : 60, rotate: i % 2 === 0 ? -2 : 2 },
           {
             opacity: 1, x: 0, rotate: 0,
-            duration: 1, ease: 'power3.out',
+            duration: 0.6, ease: 'power3.out',
             scrollTrigger: { trigger: el, start: 'top 85%' }
           }
         )
@@ -57,7 +57,7 @@ export default function Esperienze() {
         { clipPath: 'inset(0 0 100% 0)', scale: 1.1 },
         {
           clipPath: 'inset(0 0 0% 0)', scale: 1,
-          duration: 1.4, ease: 'power3.inOut',
+          duration: 0.8, ease: 'power3.inOut',
           scrollTrigger: { trigger: detailRef.current, start: 'top 75%' }
         }
       )
@@ -77,7 +77,7 @@ export default function Esperienze() {
     <section ref={sectionRef} className="relative py-32 md:py-48 overflow-hidden">
       <div className="absolute inset-0 -top-[20%] -bottom-[20%]">
         <div ref={bgRef} className="w-full h-full">
-          <img src={bgImg} alt="" className="w-full h-full object-cover opacity-20" />
+          <img src={bgImg} alt="Atmosfera del ristorante" title="Il Nuovo Guscio - Atmosfera" loading="lazy" width={1200} height={800} className="w-full h-full object-cover opacity-20" />
         </div>
         <div className="absolute inset-0 bg-dark-900/80" />
         <div className="absolute inset-0 bg-gradient-to-b from-dark-900 via-transparent to-dark-900" />
@@ -112,7 +112,7 @@ export default function Esperienze() {
 
             <a
               href="tel:+393338967957"
-              className="inline-block mt-12 f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-7 py-3 rounded-full transition-all duration-500"
+              className="inline-block mt-12 f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-7 py-3 rounded-full transition-all duration-300"
             >
               Organizza la tua serata
             </a>
@@ -124,7 +124,7 @@ export default function Esperienze() {
               className="aspect-[3/4] overflow-hidden"
               style={{ clipPath: 'inset(0 0 100% 0)' }}
             >
-              <img src={detailImg} alt="Vino e atmosfera" className="w-full h-full object-cover" />
+              <img src={detailImg} alt="Vino e atmosfera" title="Serata speciale al Nuovo Guscio" loading="lazy" width={600} height={800} className="w-full h-full object-cover" />
             </div>
             <p className="f-label mt-4 c-muted">L'atmosfera di una serata speciale</p>
           </div>

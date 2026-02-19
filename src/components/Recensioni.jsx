@@ -54,7 +54,7 @@ export default function Recensioni() {
       gsap.fromTo(split.lines,
         { yPercent: 110 },
         {
-          yPercent: 0, duration: 1.2, stagger: 0.1, ease: 'power3.out',
+          yPercent: 0, duration: 0.7, stagger: 0.06, ease: 'power3.out',
           scrollTrigger: { trigger: titleRef.current, start: 'top 80%' }
         }
       )
@@ -63,7 +63,7 @@ export default function Recensioni() {
         { opacity: 0, scale: 0.8, rotate: -10 },
         {
           opacity: 0.04, scale: 1, rotate: 0,
-          duration: 1.5, ease: 'power2.out',
+          duration: 0.9, ease: 'power2.out',
           scrollTrigger: { trigger: bigQuoteRef.current, start: 'top 85%' }
         }
       )
@@ -75,9 +75,9 @@ export default function Recensioni() {
           { opacity: 0, y: 60, rotate: angles[i] },
           {
             opacity: 1, y: 0, rotate: 0,
-            duration: 1, ease: 'power3.out',
+            duration: 0.6, ease: 'power3.out',
             scrollTrigger: { trigger: el, start: 'top 85%' },
-            delay: i * 0.1,
+            delay: i * 0.06,
           }
         )
       })
@@ -86,7 +86,7 @@ export default function Recensioni() {
         gsap.fromTo(badgesRef.current.children,
           { opacity: 0, y: 20 },
           {
-            opacity: 1, y: 0, duration: 0.6, stagger: 0.08, ease: 'power2.out',
+            opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out',
             scrollTrigger: { trigger: badgesRef.current, start: 'top 90%' }
           }
         )

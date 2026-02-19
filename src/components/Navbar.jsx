@@ -26,7 +26,7 @@ export default function Navbar() {
     if (!navRef.current) return
     gsap.fromTo(navRef.current,
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.5 }
+      { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', delay: 0.3 }
     )
   }, [])
 
@@ -34,14 +34,14 @@ export default function Navbar() {
     <>
       <nav
         ref={navRef}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-          scrolled ? 'bg-dark-900/80 backdrop-blur-xl' : ''
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
+          scrolled ? 'bg-dark-900/80 backdrop-blur-xl' : 'bg-dark-900/60 backdrop-blur-md'
         }`}
         style={{ opacity: 0 }}
       >
         <div className="flex items-center justify-between px-5 md:px-10 lg:px-16 h-20 md:h-24">
           <a href="#" className="flex items-center gap-3 relative z-50">
-            <img src={logo} alt="Il Nuovo Guscio" className="h-10 w-10 md:h-11 md:w-11 rounded-full" />
+            <img src={logo} alt="Il Nuovo Guscio" title="Il Nuovo Guscio - Ristorante di pesce" loading="eager" width={44} height={44} className="h-10 w-10 md:h-11 md:w-11 rounded-full" />
             <span className="hidden md:block font-display text-xl tracking-tight text-dark-50">
               Il Nuovo Guscio
             </span>
@@ -52,15 +52,16 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="f-label text-dark-200 hover:text-gold-400 transition-colors duration-500"
-                style={{ marginLeft: i === 0 ? 0 : `${2 + (i % 3) * 0.8}rem` }}
+                className="f-label hover:text-gold-400 transition-colors duration-300"
+                style={{ marginLeft: i === 0 ? 0 : `${2 + (i % 3) * 0.8}rem`, color: '#e8e4df' }}
               >
                 {link.label}
               </a>
             ))}
             <a
               href="tel:+393338967957"
-              className="ml-12 f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-6 py-2.5 rounded-full transition-all duration-500"
+              className="ml-12 f-label border border-white/30 hover:bg-gold-400 hover:text-dark-900 hover:border-gold-400 px-6 py-2.5 rounded-full transition-all duration-300"
+              style={{ color: '#e8e4df' }}
             >
               Prenota
             </a>
@@ -72,19 +73,19 @@ export default function Navbar() {
             aria-label="Menu"
           >
             <motion.span
-              className="block h-px bg-dark-50 origin-right"
+              className="block h-[2px] bg-white origin-right"
               animate={{ width: 28, rotate: open ? -45 : 0 }}
-              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1] }}
             />
             <motion.span
-              className="block h-px bg-dark-50"
+              className="block h-[2px] bg-white"
               animate={{ width: open ? 0 : 18, opacity: open ? 0 : 1 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
             />
             <motion.span
-              className="block h-px bg-dark-50 origin-right"
+              className="block h-[2px] bg-white origin-right"
               animate={{ width: open ? 28 : 22, rotate: open ? 45 : 0 }}
-              transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1] }}
             />
           </button>
         </div>
@@ -97,7 +98,7 @@ export default function Navbar() {
             initial={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
             animate={{ clipPath: 'circle(150% at calc(100% - 40px) 40px)' }}
             exit={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
-            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
           >
             {links.map((link, i) => (
               <motion.a
@@ -107,7 +108,7 @@ export default function Navbar() {
                 className="block font-display text-5xl sm:text-6xl text-dark-50 mb-2 hover:text-gold-400 transition-colors"
                 initial={{ y: 60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 + i * 0.08, duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+                transition={{ delay: 0.1 + i * 0.05, duration: 0.35, ease: [0.76, 0, 0.24, 1] }}
                 style={{ fontWeight: 300 }}
               >
                 {link.label}
@@ -119,7 +120,7 @@ export default function Navbar() {
               className="mt-10 f-label c-gold"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
+              transition={{ delay: 0.4 }}
             >
               +39 333 896 7957
             </motion.a>

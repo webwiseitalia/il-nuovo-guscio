@@ -39,7 +39,7 @@ export default function MenuSection() {
         { opacity: 0, y: 80, rotateX: -90 },
         {
           opacity: 1, y: 0, rotateX: 0,
-          duration: 1, stagger: 0.025, ease: 'power3.out',
+          duration: 0.6, stagger: 0.015, ease: 'power3.out',
           scrollTrigger: { trigger: titleRef.current, start: 'top 80%' }
         }
       )
@@ -58,7 +58,7 @@ export default function MenuSection() {
           { clipPath: clipPaths[i][0], scale: 1.15 },
           {
             clipPath: clipPaths[i][1], scale: 1,
-            duration: 1.4, ease: 'power3.inOut',
+            duration: 0.8, ease: 'power3.inOut',
             scrollTrigger: { trigger: el, start: 'top 80%' }
           }
         )
@@ -70,7 +70,7 @@ export default function MenuSection() {
           gsap.fromTo(group,
             { opacity: 0, x: i % 2 === 0 ? -40 : 40 },
             {
-              opacity: 1, x: 0, duration: 0.8, ease: 'power2.out',
+              opacity: 1, x: 0, duration: 0.5, ease: 'power2.out',
               scrollTrigger: { trigger: group, start: 'top 85%' }
             }
           )
@@ -104,29 +104,29 @@ export default function MenuSection() {
         <div className="grid grid-cols-12 gap-3 md:gap-4 mb-24 md:mb-40">
           <div className="col-span-12 md:col-span-7" style={{ marginTop: images[0].offset }}>
             <div ref={el => imgsRef.current[0] = el} className="aspect-[4/3] overflow-hidden">
-              <img src={images[0].src} alt={images[0].alt} className="w-full h-full object-cover" />
+              <img src={images[0].src} alt={images[0].alt} title={images[0].alt} loading="lazy" width={900} height={675} className="w-full h-full object-cover" />
             </div>
             <p className="f-label mt-3 c-muted">Plateau Royale — il nostro piatto più celebre</p>
           </div>
           <div className="col-span-8 md:col-span-4 md:col-start-9" style={{ marginTop: images[1].offset }}>
             <div ref={el => imgsRef.current[1] = el} className="aspect-[3/4] overflow-hidden">
-              <img src={images[1].src} alt={images[1].alt} className="w-full h-full object-cover" />
+              <img src={images[1].src} alt={images[1].alt} title={images[1].alt} loading="lazy" width={600} height={800} className="w-full h-full object-cover" />
             </div>
           </div>
 
           <div className="col-span-5 md:col-span-3 md:col-start-2" style={{ marginTop: images[2].offset }}>
             <div ref={el => imgsRef.current[2] = el} className="aspect-[2/3] overflow-hidden">
-              <img src={images[2].src} alt={images[2].alt} className="w-full h-full object-cover" />
+              <img src={images[2].src} alt={images[2].alt} title={images[2].alt} loading="lazy" width={400} height={600} className="w-full h-full object-cover" />
             </div>
           </div>
           <div className="col-span-7 md:col-span-4" style={{ marginTop: images[3].offset }}>
             <div ref={el => imgsRef.current[3] = el} className="aspect-[5/4] overflow-hidden">
-              <img src={images[3].src} alt={images[3].alt} className="w-full h-full object-cover" />
+              <img src={images[3].src} alt={images[3].alt} title={images[3].alt} loading="lazy" width={750} height={600} className="w-full h-full object-cover" />
             </div>
           </div>
           <div className="col-span-6 md:col-span-3" style={{ marginTop: images[4].offset }}>
             <div ref={el => imgsRef.current[4] = el} className="aspect-square overflow-hidden">
-              <img src={images[4].src} alt={images[4].alt} className="w-full h-full object-cover" />
+              <img src={images[4].src} alt={images[4].alt} title={images[4].alt} loading="lazy" width={600} height={600} className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -163,7 +163,7 @@ export default function MenuSection() {
             href="https://ilnuovoguscio.eatbu.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-7 py-3 rounded-full transition-all duration-500 flex-shrink-0"
+            className="f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-7 py-3 rounded-full transition-all duration-300 flex-shrink-0"
           >
             Menu completo ↗
           </a>

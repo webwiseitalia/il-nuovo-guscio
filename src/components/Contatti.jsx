@@ -24,7 +24,7 @@ export default function Contatti() {
       gsap.fromTo(split.lines,
         { yPercent: 110 },
         {
-          yPercent: 0, duration: 1.2, stagger: 0.1, ease: 'power3.out',
+          yPercent: 0, duration: 0.7, stagger: 0.06, ease: 'power3.out',
           scrollTrigger: { trigger: titleRef.current, start: 'top 80%' }
         }
       )
@@ -33,7 +33,7 @@ export default function Contatti() {
         gsap.fromTo(infoRef.current.children,
           { opacity: 0, x: -30 },
           {
-            opacity: 1, x: 0, duration: 0.7, stagger: 0.1, ease: 'power2.out',
+            opacity: 1, x: 0, duration: 0.45, stagger: 0.06, ease: 'power2.out',
             scrollTrigger: { trigger: infoRef.current, start: 'top 85%' }
           }
         )
@@ -43,7 +43,7 @@ export default function Contatti() {
         gsap.fromTo(orariRef.current,
           { opacity: 0, y: 30 },
           {
-            opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+            opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
             scrollTrigger: { trigger: orariRef.current, start: 'top 85%' }
           }
         )
@@ -53,7 +53,7 @@ export default function Contatti() {
         { clipPath: 'inset(0 0 0 100%)' },
         {
           clipPath: 'inset(0 0 0 0%)',
-          duration: 1.4, ease: 'power3.inOut',
+          duration: 0.8, ease: 'power3.inOut',
           scrollTrigger: { trigger: mapRef.current, start: 'top 75%' }
         }
       )
@@ -107,10 +107,10 @@ export default function Contatti() {
             </div>
 
             <div className="mt-12 flex flex-col sm:flex-row gap-4">
-              <a href="tel:+393338967957" className="f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-7 py-3 rounded-full transition-all duration-500 text-center">
+              <a href="tel:+393338967957" className="f-label border border-gold-400/30 text-gold-400 hover:bg-gold-400 hover:text-dark-900 px-7 py-3 rounded-full transition-all duration-300 text-center">
                 Chiama per prenotare
               </a>
-              <a href="https://ilnuovoguscio.eatbu.com" target="_blank" rel="noopener noreferrer" className="f-label border border-white/[0.08] text-dark-200 hover:text-gold-400 hover:border-gold-400/30 px-7 py-3 rounded-full transition-all duration-500 text-center">
+              <a href="https://ilnuovoguscio.eatbu.com" target="_blank" rel="noopener noreferrer" className="f-label border border-white/[0.08] text-dark-200 hover:text-gold-400 hover:border-gold-400/30 px-7 py-3 rounded-full transition-all duration-300 text-center">
                 Prenota online
               </a>
             </div>

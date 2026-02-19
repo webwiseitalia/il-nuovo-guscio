@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Lenis from '@studio-freight/lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -12,10 +13,13 @@ import Recensioni from './components/Recensioni'
 import Gallery from './components/Gallery'
 import Contatti from './components/Contatti'
 import Footer from './components/Footer'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import CookiePolicy from './components/CookiePolicy'
+import CookieBanner from './components/CookieBanner'
 
 gsap.registerPlugin(ScrollTrigger)
 
-function App() {
+function HomePage() {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -53,11 +57,25 @@ function App() {
       {/* Mobile call CTA */}
       <a
         href="tel:+393338967957"
-        className="fixed bottom-6 right-6 z-40 lg:hidden f-label border border-gold-400/30 bg-dark-900/90 backdrop-blur-md text-gold-400 px-5 py-3 rounded-full transition-all duration-500"
+        className="fixed bottom-6 right-6 z-40 lg:hidden f-label border border-white/30 bg-dark-900/90 backdrop-blur-md px-5 py-3 rounded-full transition-all duration-500"
+        style={{ color: '#e8e4df' }}
       >
         Prenota
       </a>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/cookie-policy" element={<CookiePolicy />} />
+      </Routes>
+      <CookieBanner />
+    </>
   )
 }
 

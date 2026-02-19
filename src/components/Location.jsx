@@ -29,7 +29,7 @@ export default function Location() {
       gsap.fromTo(split.lines,
         { yPercent: 120 },
         {
-          yPercent: 0, duration: 1.3, stagger: 0.1, ease: 'power3.out',
+          yPercent: 0, duration: 0.75, stagger: 0.06, ease: 'power3.out',
           scrollTrigger: { trigger: titleRef.current, start: 'top 80%' }
         }
       )
@@ -47,9 +47,9 @@ export default function Location() {
           { clipPath: 'inset(100% 0 0 0)', scale: 1.15 },
           {
             clipPath: 'inset(0% 0 0 0)', scale: 1,
-            duration: 1.5, ease: 'power3.inOut',
+            duration: 0.85, ease: 'power3.inOut',
             scrollTrigger: { trigger: ref.current, start: 'top 80%' },
-            delay: i * 0.2,
+            delay: i * 0.12,
           }
         )
         const imgEl = ref.current?.querySelector('img')
@@ -65,7 +65,7 @@ export default function Location() {
         gsap.fromTo(featuresRef.current.children,
           { opacity: 0, y: 30 },
           {
-            opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out',
+            opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power2.out',
             scrollTrigger: { trigger: featuresRef.current, start: 'top 85%' }
           }
         )
@@ -100,21 +100,21 @@ export default function Location() {
         <div className="grid grid-cols-12 gap-3 md:gap-5">
           <div className="col-span-12 md:col-span-8">
             <div ref={img1Ref} className="aspect-[16/9] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
-              <img src={sala1} alt="La sala con le volte storiche" className="w-full h-full object-cover will-change-transform" />
+              <img src={sala1} alt="La sala con le volte storiche" title="Le volte del monastero" loading="lazy" width={1200} height={675} className="w-full h-full object-cover will-change-transform" />
             </div>
             <p className="f-label mt-3 c-muted">Le volte del monastero</p>
           </div>
 
           <div className="col-span-6 md:col-span-4 mt-0 md:mt-20">
             <div ref={img2Ref} className="aspect-[3/4] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
-              <img src={cantina} alt="La cantina dei vini" className="w-full h-full object-cover will-change-transform" />
+              <img src={cantina} alt="La cantina dei vini" title="La cantina" loading="lazy" width={600} height={800} className="w-full h-full object-cover will-change-transform" />
             </div>
             <p className="f-label mt-3 c-muted">La cantina</p>
           </div>
 
           <div className="col-span-6 md:col-span-5 md:col-start-3 mt-6 md:-mt-16">
             <div ref={img3Ref} className="aspect-[5/3] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
-              <img src={esterno} alt="La terrazza" className="w-full h-full object-cover will-change-transform" />
+              <img src={esterno} alt="La terrazza" title="La terrazza in piazza" loading="lazy" width={750} height={450} className="w-full h-full object-cover will-change-transform" />
             </div>
             <p className="f-label mt-3 c-muted">La terrazza in piazza</p>
           </div>

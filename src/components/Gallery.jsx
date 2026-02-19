@@ -50,7 +50,7 @@ export default function Gallery() {
       gsap.fromTo(titleRef.current,
         { opacity: 0 },
         {
-          opacity: 1, duration: 0.8,
+          opacity: 1, duration: 0.5,
           scrollTrigger: { trigger: titleRef.current, start: 'top 80%' }
         }
       )
@@ -59,10 +59,10 @@ export default function Gallery() {
         const items = gridRef.current.querySelectorAll('.gallery-item')
         items.forEach((el, i) => {
           gsap.fromTo(el,
-            { opacity: 0, y: 40 + (i % 3) * 20, scale: 0.95 },
+            { opacity: 0, y: 30 + (i % 3) * 10, scale: 0.95 },
             {
               opacity: 1, y: 0, scale: 1,
-              duration: 0.8 + (i % 4) * 0.15,
+              duration: 0.5 + (i % 4) * 0.08,
               ease: 'power2.out',
               scrollTrigger: { trigger: el, start: 'top 88%' }
             }
@@ -98,7 +98,10 @@ export default function Gallery() {
               <img
                 src={img.src}
                 alt={img.alt}
-                className="w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.25,0.1,0,1)] group-hover:scale-[1.06]"
+                title={img.alt}
+                width={600}
+                height={600}
+                className="w-full h-full object-cover transition-transform duration-[0.6s] ease-[cubic-bezier(0.25,0.1,0,1)] group-hover:scale-[1.06]"
                 loading="lazy"
               />
             </div>
@@ -113,7 +116,7 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.25 }}
             onClick={() => setLightbox(null)}
           >
             <motion.img
@@ -124,7 +127,7 @@ export default function Gallery() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, ease: [0.25, 0.1, 0, 1] }}
+              transition={{ duration: 0.25, ease: [0.25, 0.1, 0, 1] }}
               onClick={e => e.stopPropagation()}
             />
             <button onClick={e => { e.stopPropagation(); prev() }} className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 text-dark-200 hover:text-dark-50 text-4xl transition-colors">&#8592;</button>
