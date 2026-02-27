@@ -105,15 +105,15 @@ export default function Location() {
             <p className="f-label mt-3 c-muted">Le volte del monastero</p>
           </div>
 
-          <div className="col-span-6 md:col-span-4 mt-0 md:mt-20">
-            <div ref={img2Ref} className="aspect-[3/4] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
+          <div className="col-span-12 sm:col-span-6 md:col-span-4 mt-4 md:mt-20">
+            <div ref={img2Ref} className="aspect-[4/3] sm:aspect-[3/4] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
               <img src={cantina} alt="La cantina dei vini" title="La cantina" loading="lazy" width={600} height={800} className="w-full h-full object-cover will-change-transform" />
             </div>
             <p className="f-label mt-3 c-muted">La cantina</p>
           </div>
 
-          <div className="col-span-6 md:col-span-5 md:col-start-3 mt-6 md:-mt-16">
-            <div ref={img3Ref} className="aspect-[5/3] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
+          <div className="col-span-12 sm:col-span-6 md:col-span-5 md:col-start-3 mt-4 md:-mt-16">
+            <div ref={img3Ref} className="aspect-[16/9] sm:aspect-[5/3] overflow-hidden" style={{ clipPath: 'inset(100% 0 0 0)' }}>
               <img src={esterno} alt="La terrazza" title="La terrazza in piazza" loading="lazy" width={750} height={450} className="w-full h-full object-cover will-change-transform" />
             </div>
             <p className="f-label mt-3 c-muted">La terrazza in piazza</p>

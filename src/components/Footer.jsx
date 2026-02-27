@@ -79,12 +79,14 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-white/[0.04] flex flex-col md:flex-row justify-between gap-4">
           <p className="f-body text-xs c-muted">© {new Date().getFullYear()} Il Nuovo Guscio — Pisogne (BS)</p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
             <p className="f-body text-xs c-muted">P.IVA: IT04333680983</p>
-            <span className="c-muted">|</span>
-            <Link to="/privacy-policy" onClick={() => window.scrollTo(0, 0)} className="f-body text-xs text-dark-300 hover:text-gold-400 transition-colors">Privacy Policy</Link>
-            <span className="c-muted">|</span>
-            <Link to="/cookie-policy" onClick={() => window.scrollTo(0, 0)} className="f-body text-xs text-dark-300 hover:text-gold-400 transition-colors">Cookie Policy</Link>
+            <span className="hidden sm:inline c-muted">|</span>
+            <div className="flex items-center gap-4">
+              <Link to="/privacy-policy" onClick={() => window.scrollTo(0, 0)} className="f-body text-xs text-dark-300 hover:text-gold-400 transition-colors">Privacy Policy</Link>
+              <span className="c-muted">|</span>
+              <Link to="/cookie-policy" onClick={() => window.scrollTo(0, 0)} className="f-body text-xs text-dark-300 hover:text-gold-400 transition-colors">Cookie Policy</Link>
+            </div>
           </div>
         </div>
       </div>

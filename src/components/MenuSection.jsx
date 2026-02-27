@@ -19,11 +19,11 @@ const dishes = [
 ]
 
 const images = [
-  { src: plateauImg, alt: 'Plateau Royale', offset: '0' },
-  { src: crudiImg, alt: 'Crudité di pesce', offset: '8vh' },
-  { src: pastaImg, alt: 'Pasta al nero', offset: '3vh' },
-  { src: grigliataImg, alt: 'Grigliata', offset: '12vh' },
-  { src: tartareImg, alt: 'Tartare', offset: '2vh' },
+  { src: plateauImg, alt: 'Plateau Royale', offset: '0', mobileOffset: '0' },
+  { src: crudiImg, alt: 'Crudité di pesce', offset: '8vh', mobileOffset: '0' },
+  { src: pastaImg, alt: 'Pasta al nero', offset: '3vh', mobileOffset: '0' },
+  { src: grigliataImg, alt: 'Grigliata', offset: '12vh', mobileOffset: '0' },
+  { src: tartareImg, alt: 'Tartare', offset: '2vh', mobileOffset: '0' },
 ]
 
 export default function MenuSection() {
@@ -102,29 +102,29 @@ export default function MenuSection() {
         </p>
 
         <div className="grid grid-cols-12 gap-3 md:gap-4 mb-24 md:mb-40">
-          <div className="col-span-12 md:col-span-7" style={{ marginTop: images[0].offset }}>
+          <div className="col-span-12 md:col-span-7">
             <div ref={el => imgsRef.current[0] = el} className="aspect-[4/3] overflow-hidden">
               <img src={images[0].src} alt={images[0].alt} title={images[0].alt} loading="lazy" width={900} height={675} className="w-full h-full object-cover" />
             </div>
             <p className="f-label mt-3 c-muted">Plateau Royale — il nostro piatto più celebre</p>
           </div>
-          <div className="col-span-8 md:col-span-4 md:col-start-9" style={{ marginTop: images[1].offset }}>
+          <div className="col-span-7 md:col-span-4 md:col-start-9 md:mt-[8vh]">
             <div ref={el => imgsRef.current[1] = el} className="aspect-[3/4] overflow-hidden">
               <img src={images[1].src} alt={images[1].alt} title={images[1].alt} loading="lazy" width={600} height={800} className="w-full h-full object-cover" />
             </div>
           </div>
 
-          <div className="col-span-5 md:col-span-3 md:col-start-2" style={{ marginTop: images[2].offset }}>
+          <div className="col-span-5 md:col-span-3 md:col-start-2">
             <div ref={el => imgsRef.current[2] = el} className="aspect-[2/3] overflow-hidden">
               <img src={images[2].src} alt={images[2].alt} title={images[2].alt} loading="lazy" width={400} height={600} className="w-full h-full object-cover" />
             </div>
           </div>
-          <div className="col-span-7 md:col-span-4" style={{ marginTop: images[3].offset }}>
+          <div className="col-span-7 md:col-span-4">
             <div ref={el => imgsRef.current[3] = el} className="aspect-[5/4] overflow-hidden">
               <img src={images[3].src} alt={images[3].alt} title={images[3].alt} loading="lazy" width={750} height={600} className="w-full h-full object-cover" />
             </div>
           </div>
-          <div className="col-span-6 md:col-span-3" style={{ marginTop: images[4].offset }}>
+          <div className="col-span-6 md:col-span-3">
             <div ref={el => imgsRef.current[4] = el} className="aspect-square overflow-hidden">
               <img src={images[4].src} alt={images[4].alt} title={images[4].alt} loading="lazy" width={600} height={600} className="w-full h-full object-cover" />
             </div>

@@ -145,7 +145,7 @@ export default function Contatti() {
 
         <div
           ref={mapRef}
-          className="mt-16 md:mt-24 aspect-[16/7] overflow-hidden rounded-sm"
+          className="mt-16 md:mt-24 aspect-[4/3] md:aspect-[16/7] overflow-hidden rounded-sm"
           style={{ clipPath: 'inset(0 0 0 100%)' }}
         >
           <iframe

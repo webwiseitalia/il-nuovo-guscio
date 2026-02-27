@@ -87,15 +87,16 @@ export default function Hero() {
       <div className="absolute inset-0">
         <div
           ref={imgRef}
-          className="absolute top-0 right-0 w-[75vw] md:w-[55vw] h-[110vh]"
+          className="absolute top-0 right-0 w-[100vw] md:w-[55vw] h-[110vh]"
           style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' }}
         >
           <img src={heroImg} alt="La sala del monastero" title="Sala del ristorante Il Nuovo Guscio" loading="eager" width={1200} height={800} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-dark-900/40 md:bg-dark-900/20" />
         </div>
 
         <div
           ref={img2Ref}
-          className="absolute bottom-[8vh] left-[3vw] md:left-[5vw] w-[40vw] md:w-[22vw] aspect-[3/4] z-10"
+          className="hidden md:block absolute bottom-[8vh] left-[5vw] w-[22vw] aspect-[3/4] z-10"
           style={{ clipPath: 'inset(100% 0 0 0)' }}
         >
           <img src={heroImg2} alt="Crudité di pesce" title="Crudité di pesce fresco" loading="eager" width={600} height={800} className="w-full h-full object-cover" />
@@ -124,7 +125,7 @@ export default function Hero() {
             cucina mediterranea e tradizione sarda.
           </p>
 
-          <div className="flex items-center gap-6 flex-shrink-0">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 flex-shrink-0">
             <a
               href="tel:+393338967957"
               className="f-label border border-white/30 hover:bg-white/10 px-7 py-3 rounded-full transition-all duration-300"

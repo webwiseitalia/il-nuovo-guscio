@@ -130,10 +130,10 @@ export default function Gallery() {
               transition={{ duration: 0.25, ease: [0.25, 0.1, 0, 1] }}
               onClick={e => e.stopPropagation()}
             />
-            <button onClick={e => { e.stopPropagation(); prev() }} className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 text-dark-200 hover:text-dark-50 text-4xl transition-colors">&#8592;</button>
-            <button onClick={e => { e.stopPropagation(); next() }} className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 text-dark-200 hover:text-dark-50 text-4xl transition-colors">&#8594;</button>
-            <button onClick={() => setLightbox(null)} className="absolute top-6 right-6 text-dark-200 hover:text-dark-50 text-2xl transition-colors">&#10005;</button>
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 f-label c-muted">{lightbox + 1} / {images.length}</div>
+            <button onClick={e => { e.stopPropagation(); prev() }} className="absolute left-3 md:left-12 top-1/2 -translate-y-1/2 text-dark-200 hover:text-dark-50 text-3xl md:text-4xl w-12 h-12 flex items-center justify-center transition-colors">&#8592;</button>
+            <button onClick={e => { e.stopPropagation(); next() }} className="absolute right-3 md:right-12 top-1/2 -translate-y-1/2 text-dark-200 hover:text-dark-50 text-3xl md:text-4xl w-12 h-12 flex items-center justify-center transition-colors">&#8594;</button>
+            <button onClick={() => setLightbox(null)} className="absolute top-4 right-4 md:top-6 md:right-6 text-dark-200 hover:text-dark-50 text-2xl w-10 h-10 flex items-center justify-center transition-colors">&#10005;</button>
+            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 f-label c-muted">{lightbox + 1} / {images.length}</div>
           </motion.div>
         )}
       </AnimatePresence>
